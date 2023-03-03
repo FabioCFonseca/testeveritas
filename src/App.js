@@ -1,9 +1,9 @@
-import FetchDataComponent from './Fetch';
+import FetchData from './Fetch';
 
 function App() {
   return (
     <div className='App'>
-      <FetchDataComponent />
+      <FetchData />
     </div>
   );
 }

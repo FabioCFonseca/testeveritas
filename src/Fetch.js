@@ -4,28 +4,26 @@ import Error from './views/Error'
 import SemSaldo from "./views/SemSaldo";
 import DisplayCliente from "./views/DisplayCliente";
 
-
 const fetchData = async () => {
-   try {
-     const response = await fetch("https://api.federalconsig.com.br/api/teste");
-     const data = await response.json();
-         if(data.msg == "Sem Saldo disponível para consulta.") {
-             const rootElement = document.getElementById('root');
-             createRoot(rootElement).render(<SemSaldo data={data} />);
-         } else{
-           const rootElement = document.getElementById('root');
-           createRoot(rootElement).render(<DisplayCliente data={data} />);
-         }      
-   } catch (error) {
-          console.log(error)
-         if (error) {
+  try {
+    const response = await fetch("https://api.federalconsig.com.br/api/teste");
+    const data = await response.json();
+      if(data.msg == "Sem Saldo disponível para consulta.") {
+        const rootElement = document.getElementById('root');
+        createRoot(rootElement).render(<SemSaldo data={data} />);
+      } else{
           const rootElement = document.getElementById('root');
-          createRoot(rootElement).render(<Error data={error} />);
-         }
+          createRoot(rootElement).render(<DisplayCliente data={data} />);
+        }} 
+      catch (error) {
+        if (error) {
+          const rootElement = document.getElementById('root');
+          createRoot(rootElement).render(<Error />);
+        }
    }
 };
 
-const FetchDataComponent = () => {
+const FetchData = () => {
   useEffect(() => {
 fetchData()
   }, []);
@@ -33,4 +31,4 @@ fetchData()
   return null;
 };
 
-export default FetchDataComponent;
+export default FetchData;

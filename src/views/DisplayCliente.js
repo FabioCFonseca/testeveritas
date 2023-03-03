@@ -1,10 +1,49 @@
 import React from 'react'
 import GreenHeader from '../Header'
-
+import { format, parseISO } from 'date-fns'
+ 
 const DisplayCliente = ({data}) => {
     let i = 0
     let p = 0
     let t = 0
+    const dataNascFormat = data.dataNascimento != undefined
+    ? format(parseISO(data.dataNascimento), 'dd/MM/yyyy')
+    : "";
+    const dataDibFormat = data.dib != undefined
+    ? format(parseISO(data.dib), 'dd/MM/yyyy')
+    : "";
+    const dataInicioContratoFormat = data.contratosEmprestimo[i].dataInicioContrato != undefined
+    ? format(parseISO(data.contratosEmprestimo[i].dataInicioContrato), 'dd/MM/yyyy')
+    : "";
+    const competenciaInicioDescontoFormat = data.contratosEmprestimo[i].competenciaInicioDesconto != undefined
+    ? format(parseISO(data.contratosEmprestimo[i].competenciaInicioDesconto), 'dd/MM/yyyy')
+    : "";
+    const competenciaFimDescontoFormat = data.contratosEmprestimo[i].competenciaFimDesconto != undefined
+    ? format(parseISO(data.contratosEmprestimo[i].competenciaFimDesconto), 'dd/MM/yyyy')
+    : "";
+    const dataInclusaoFormat = data.contratosEmprestimo[i].dataInclusao != undefined
+    ? format(parseISO(data.contratosEmprestimo[i].dataInclusao), 'dd/MM/yyyy')
+    : "";
+    const dataInicioContratoCartFormat = data.contratosCartao[p].dataInicioContrato != undefined
+    ? format(parseISO(data.contratosCartao[p].dataInicioContrato), 'dd/MM/yyyy')
+    : "";
+    const competenciaInicioDescontoCartFormat = data.contratosCartao[p].competenciaInicioDesconto != undefined
+    ? format(parseISO(data.contratosCartao[p].competenciaInicioDesconto), 'dd/MM/yyyy')
+    : "";
+    const competenciaFimDescontoCartFormat = data.contratosCartao[p].competenciaFimDesconto != undefined
+    ? format(parseISO(data.contratosCartao[p].competenciaFimDesconto), 'dd/MM/yyyy')
+    : "";
+    const dataInicioContratoRccFormat = data.contratosRcc[t].dataInicioContrato != undefined
+    ? format(parseISO(data.contratosRcc[t].dataInicioContrato), 'dd/MM/yyyy')
+    : "";
+    const competenciaInicioDescontoRccFormat = data.contratosRcc[t].competenciaInicioDesconto != undefined
+    ? format(parseISO(data.contratosRcc[t].competenciaInicioDesconto), 'dd/MM/yyyy')
+    : "";
+    const competenciaFimDescontoRccFormat = data.contratosRcc[t].competenciaFimDesconto != undefined
+    ? format(parseISO(data.contratosRcc[t].competenciaFimDesconto), 'dd/MM/yyyy')
+    : "";
+  
+
     const contratosEmprestimo = []
     const contratosCartao = []
     const contratosRcc = []
@@ -21,10 +60,10 @@ const DisplayCliente = ({data}) => {
             <h2>Banco</h2>
             <h3>Código: {data.contratosEmprestimo[i].banco.codigo}</h3>
             <h3>Nome: {data.contratosEmprestimo[i].banco.nome}</h3>
-            <h3>Data inicio contrato: {data.contratosEmprestimo[i].dataInicioContrato}</h3>
-            <h3>Competência inicio desconto: {data.contratosEmprestimo[i].competenciaInicioDesconto}</h3>
-            <h3>Competência fim desconto: {data.contratosEmprestimo[i].competenciaFimDesconto}</h3>
-            <h3>Data inclusão: {data.contratosEmprestimo[i].dataInclusao}</h3>
+            <h3>Data inicio contrato: {dataInicioContratoFormat}</h3>
+            <h3>Competência inicio desconto: {competenciaInicioDescontoFormat}</h3>
+            <h3>Competência fim desconto: {competenciaFimDescontoFormat}</h3>
+            <h3>Data inclusão: {dataInclusaoFormat}</h3>
             <h3>Situação: {data.contratosEmprestimo[i].situacao}</h3>
             <h3>Excluído aps: {data.contratosEmprestimo[i].excluidoAps}</h3>
             <h3>Excluído banco: {data.contratosEmprestimo[i].excluidoBanco}</h3>
@@ -42,7 +81,7 @@ const DisplayCliente = ({data}) => {
 
     while (p < data.contratosCartao.length) {
         contratosCartao.push(
-        <div key={data.cpf+'cartao'+{p}}>
+        <div key={data.contratosCartao[p].contrato}>
             <h2 className='font-extrabold text-xl'>Contratos cartão {p+1}</h2>
             <h3>contrato: {data.contratosCartao[p].contrato}</h3>
             <h2>Tipo de empréstimo</h2>
@@ -52,9 +91,9 @@ const DisplayCliente = ({data}) => {
             <h2>Banco</h2>
             <h3>Código: {data.contratosCartao[p].banco.codigo}</h3>
             <h3>Nome: {data.contratosCartao[p].banco.nome}</h3>
-            <h3>Data inicio contrato: {data.contratosCartao[p].dataInicioContrato}</h3>
-            <h3>Competência inicio desconto: {data.contratosCartao[p].competenciaInicioDesconto}</h3>
-            <h3>Competência fim desconto: {data.contratosCartao[p].competenciaFimDesconto}</h3>
+            <h3>Data inicio contrato: {dataInicioContratoCartFormat}</h3>
+            <h3>Competência inicio desconto: {competenciaInicioDescontoCartFormat}</h3>
+            <h3>Competência fim desconto: {competenciaFimDescontoCartFormat}</h3>
             <h3>Data inclusão: {data.contratosCartao[p].dataInclusao}</h3>
             <h3>Situação: {data.contratosCartao[p].situacao}</h3>
             <h3>Excluído aps: {data.contratosCartao[p].excluidoAps}</h3>
@@ -73,7 +112,7 @@ const DisplayCliente = ({data}) => {
 
      while (t < data.contratosRcc.length) {
         contratosCartao.push(
-        <div key={data.cpf+'rcc'+{t}}>
+        <div key={data.contratosRcc[t].contrato}>
             <h2 className='font-extrabold text-xl'>Contratos rcc {t+1}</h2>
             <h3>contrato: {data.contratosRcc[t].contrato}</h3>
             <h2>Tipo de empréstimo</h2>
@@ -83,9 +122,9 @@ const DisplayCliente = ({data}) => {
             <h2>Bancoo</h2>
             <h3>Código: {data.contratosRcc[t].banco.codigo}</h3>
             <h3>Nome: {data.contratosRcc[t].banco.nome}</h3>
-            <h3>Data inicio contrato: {data.contratosRcc[t].dataInicioContrato}</h3>
-            <h3>Competência inicio desconto: {data.contratosRcc[t].competenciaInicioDesconto}</h3>
-            <h3>Competência fim desconto: {data.contratosRcc[t].competenciaFimDesconto}</h3>
+            <h3>Data inicio contrato: {dataInicioContratoRccFormat}</h3>
+            <h3>Competência inicio desconto: {competenciaInicioDescontoRccFormat}</h3>
+            <h3>Competência fim desconto: {competenciaFimDescontoRccFormat}</h3>
             <h3>Data inclusão: {data.contratosRcc[t].dataInclusao}</h3>
             <h3>Situação: {data.contratosRcc[t].situacao}</h3>
             <h3>Excluído aps: {data.contratosRcc[t].excluidoAps}</h3>
@@ -110,7 +149,7 @@ const DisplayCliente = ({data}) => {
         <h1 className='font-extrabold text-xl'>Dados principais</h1>
         <h3>Nome: {data.nome}</h3>
         <h3>Beneficio: {data.beneficio}</h3>
-        <h3>Data de nascimento: {data.dataNascimento}</h3> 
+        <h3>Data de nascimento: {dataNascFormat}</h3> 
         <h3>CPF: {data.cpf}</h3>
         <h3>Especie código: {data.especie.codigo}, {data.especie.descricao} </h3>
         <h3>Não perturbe: {data.NaoPerturbe}</h3>
@@ -144,7 +183,7 @@ const DisplayCliente = ({data}) => {
         <h3>NIT: {data.nit}</h3>    
         <h3>Identidade: {data.identidade}</h3>    
         <h3>Sexo: {data.sexo}</h3>    
-        <h3>DIB: {data.dib}</h3>    
+        <h3>DIB: {dataDibFormat}</h3>    
         <h3>Valor do benefício: {data.valorBeneficio}</h3>    
         <h3>Representante legal: {data.possuiRepresentanteLegalProcurador}</h3>    
         <h3>Pensão alimentícia: {data.pensaoAlimenticia}</h3>    
