@@ -6,6 +6,9 @@ const DisplayCliente = ({data}) => {
     let i = 0
     let p = 0
     let t = 0
+    const contratosEmprestimo = []
+    const contratosCartao = []
+    const contratosRcc = []
     const dataNascFormat = data.dataNascimento != undefined
     ? format(parseISO(data.dataNascimento), 'dd/MM/yyyy')
     : "";
@@ -42,11 +45,42 @@ const DisplayCliente = ({data}) => {
     const competenciaFimDescontoRccFormat = data.contratosRcc[t].competenciaFimDesconto != undefined
     ? format(parseISO(data.contratosRcc[t].competenciaFimDesconto), 'dd/MM/yyyy')
     : "";
-  
-
-    const contratosEmprestimo = []
-    const contratosCartao = []
-    const contratosRcc = []
+    const valorBeneficioBr = data.valorBeneficio != undefined 
+    ? data.valorBeneficio.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const baseCalculoMargemConsignavelBr = data.margem.baseCalculoMargemConsignavel != undefined 
+    ? data.margem.baseCalculoMargemConsignavel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const margemDisponivelEmprestimoBr = data.margem.margemDisponivelEmprestimo != undefined 
+    ? data.margem.margemDisponivelEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorEmprestadoBr = data.contratosEmprestimo[i].valorEmprestado != undefined 
+    ? data.contratosEmprestimo[i].valorEmprestado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorParcelaBr = data.contratosEmprestimo[i].valorParcela != undefined 
+    ? data.contratosEmprestimo[i].valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const saldoQuitacaoBr = data.contratosEmprestimo[i].saldoQuitacao != undefined 
+    ? data.contratosEmprestimo[i].saldoQuitacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorEmprestadoCartBr = data.contratosCartao[p].valorEmprestado != undefined 
+    ? data.contratosCartao[p].valorEmprestado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorParcelaCartBr = data.contratosCartao[p].valorParcela != undefined 
+    ? data.contratosCartao[p].valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const saldoQuitacaoCartBr = data.contratosCartao[p].saldoQuitacao != undefined 
+    ? data.contratosCartao[p].saldoQuitacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorEmprestadoRccBr = data.contratosRcc[t].valorEmprestado != undefined 
+    ? data.contratosRcc[t].valorEmprestado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const valorParcelaRccBr = data.contratosRcc[t].valorParcela != undefined 
+    ? data.contratosRcc[t].valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
+    const saldoQuitacaoRccBr = data.contratosRcc[t].saldoQuitacao != undefined 
+    ? data.contratosRcc[t].saldoQuitacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : "";
       
     while (i < data.contratosEmprestimo.length) {
         contratosEmprestimo.push(
@@ -67,11 +101,11 @@ const DisplayCliente = ({data}) => {
             <h3>Situação: {data.contratosEmprestimo[i].situacao}</h3>
             <h3>Excluído aps: {data.contratosEmprestimo[i].excluidoAps}</h3>
             <h3>Excluído banco: {data.contratosEmprestimo[i].excluidoBanco}</h3>
-            <h3>Valor emprestado: {data.contratosEmprestimo[i].valorEmprestado}</h3>
-            <h3>Valor parcela: {data.contratosEmprestimo[i].valorParcela}</h3>
+            <h3>Valor emprestado: {valorEmprestadoBr}</h3>
+            <h3>Valor parcela: {valorParcelaBr}</h3>
             <h3>Quantidade parcelas: {data.contratosEmprestimo[i].quantidadeParcelas}</h3>
             <h3>Quantidade parcelas em aberto: {data.contratosEmprestimo[i].quantidadeParcelasEmAberto}</h3>
-            <h3>Saldo quitação: {data.contratosEmprestimo[i].saldoQuitacao}</h3>
+            <h3>Saldo quitação: {saldoQuitacaoBr}</h3>
             <h3>Taxa: {data.contratosEmprestimo[i].taxa}</h3>
             <br />
             <br />
@@ -98,11 +132,11 @@ const DisplayCliente = ({data}) => {
             <h3>Situação: {data.contratosCartao[p].situacao}</h3>
             <h3>Excluído aps: {data.contratosCartao[p].excluidoAps}</h3>
             <h3>Excluído banco: {data.contratosCartao[p].excluidoBanco}</h3>
-            <h3>Valor emprestado: {data.contratosCartao[p].valorEmprestado}</h3>
-            <h3>Valor parcela: {data.contratosCartao[p].valorParcela}</h3>
+            <h3>Valor emprestado: {valorEmprestadoCartBr}</h3>
+            <h3>Valor parcela: {valorParcelaCartBr}</h3>
             <h3>Quantidade parcelas: {data.contratosCartao[p].quantidadeParcelas}</h3>
             <h3>Quantidade parcelas em aberto: {data.contratosCartao[p].quantidadeParcelasEmAberto}</h3>
-            <h3>Saldo quitação: {data.contratosCartao[p].saldoQuitacao}</h3>
+            <h3>Saldo quitação: {saldoQuitacaoCartBr}</h3>
             <h3>Taxa: {data.contratosCartao[p].taxa}</h3>
             <br />
             <br />
@@ -129,11 +163,11 @@ const DisplayCliente = ({data}) => {
             <h3>Situação: {data.contratosRcc[t].situacao}</h3>
             <h3>Excluído aps: {data.contratosRcc[t].excluidoAps}</h3>
             <h3>Excluído banco: {data.contratosRcc[t].excluidoBanco}</h3>
-            <h3>Valor emprestado: {data.contratosRcc[t].valorEmprestado}</h3>
-            <h3>Valor parcela: {data.contratosRcc[t].valorParcela}</h3>
+            <h3>Valor emprestado: {valorEmprestadoRccBr}</h3>
+            <h3>Valor parcela: {valorParcelaRccBr}</h3>
             <h3>Quantidade parcelas: {data.contratosRcc[t].quantidadeParcelas}</h3>
             <h3>Quantidade parcelas em aberto: {data.contratosRcc[t].quantidadeParcelasEmAberto}</h3>
-            <h3>Saldo quitação: {data.contratosRcc[t].saldoQuitacao}</h3>
+            <h3>Saldo quitação: {saldoQuitacaoRccBr}</h3>
             <h3>Taxa: {data.contratosRcc[t].taxa}</h3>
             <br />
             <br />
@@ -184,7 +218,7 @@ const DisplayCliente = ({data}) => {
         <h3>Identidade: {data.identidade}</h3>    
         <h3>Sexo: {data.sexo}</h3>    
         <h3>DIB: {dataDibFormat}</h3>    
-        <h3>Valor do benefício: {data.valorBeneficio}</h3>    
+        <h3>Valor do benefício: {valorBeneficioBr}</h3>    
         <h3>Representante legal: {data.possuiRepresentanteLegalProcurador}</h3>    
         <h3>Pensão alimentícia: {data.pensaoAlimenticia}</h3>    
         <h3>Bloqueio empréstimo: {data.bloqueioEmprestismo}</h3>    
@@ -193,8 +227,8 @@ const DisplayCliente = ({data}) => {
         <br />
         <h1 className='font-extrabold text-xl'>Margem</h1>
         <h3>Competência: {data.margem.competencia}</h3>  
-        <h3>Base calc margem consig: {data.margem.baseCalculoMargemConsignavel}</h3>
-        <h3>Margem disp empréstimo: {data.margem.margemDisponivelEmprestimo}</h3>
+        <h3>Base calc margem consig: {baseCalculoMargemConsignavelBr}</h3>
+        <h3>Margem disp empréstimo: {margemDisponivelEmprestimoBr}</h3>
         <h3>Percent margem disp empréstimo: {data.margem.percentualMargemDisponivelEmprestimo}</h3>
         <h3>Percent margem total empréstimo: {data.margem.percentualMargemTotalEmprestimo}</h3>
         <h3>Quantidade empréstimo: {data.margem.quantidadeEmprestimo}</h3>
